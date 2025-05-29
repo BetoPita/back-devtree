@@ -1,0 +1,40 @@
+// src/router.ts
+import { Router } from 'express';
+import { body } from 'express-validator'
+// import { createAccount } from './handlers'; // <- correcta
+import { createAccount } from './handlers/createAccount';
+import { login } from './handlers/login';
+import { handleInputError } from './middleware/validation';
+const router = Router();
+
+// console.log(typeof createAccount);
+
+router.post("/auth/register",
+
+  body('handle')
+    .notEmpty()
+    .withMessage('el handle no puede ir vacío'),
+  body('name')
+    .notEmpty()
+    .withMessage('el nombre no puede ir vacío'),
+  body('email')
+    .isEmail()
+    .withMessage('E-mail no válido'),
+  body('password')
+    .isLength({ min: 8 })
+    .withMessage('El password debe tener mínimo 8 caracteres'),
+  handleInputError,
+  createAccount
+); // aquí no debe dar error
+
+router.post('/auth/login',
+  body('email')
+    .isEmail()
+    .withMessage('E-mail no válido'),
+  body('password')
+    .notEmpty()
+    .withMessage('El password es obligatorio'),
+  handleInputError,
+  login
+)
+export default router;

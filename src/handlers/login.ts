@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import User from '../models/User';
 import { checkPassword } from '../utils/auth';
+import { generateJWT } from '../config/jwt';
 
 
 export const login = async (req: Request, res) => {
@@ -15,6 +16,7 @@ export const login = async (req: Request, res) => {
     const error = new Error('Password incorrecto');
     return res.status(404).json({ error: error.message });
   }
-  return res.status(200).json({ msg: "autentificado" });
-  // comprobar pass
+
+  const token = generateJWT({ id: user._id });
+  res.send(token);
 }

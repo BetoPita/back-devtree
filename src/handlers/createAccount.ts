@@ -36,7 +36,7 @@ export const createAccount = async (
 
     await user.save();
 
-    return res.status(201).json('ok')
+    return res.status(201).send('registro creado correctamente')
   } catch (error) {
     next(error);
   }

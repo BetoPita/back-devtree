@@ -1,11 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
-interface IUser {
-  handle: string
-  name: string
-  email: string
-  password: string
-}
+import { IUser } from "../interfaces/user.interface";
 
 const userSchema = new Schema({
   handle: {

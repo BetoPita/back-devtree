@@ -25,6 +25,15 @@ const userSchema = new Schema({
     required: true,
     trim: true
   },
+  description: {
+    type: String,
+    default: '',
+    trim: true
+  },
+  image: {
+    type: String,
+    default: ''
+  },
 })
 
 const User = mongoose.model<IUser>('User', userSchema)
